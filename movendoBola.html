@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movendo bolinha pela tela</title>
+</head>
+<body>
+    <canvas width="600" height="600"></canvas>
+
+    <script>
+        const tela = document.querySelector('canvas');
+        const pincel =  tela.getContext('2d');
+
+        let posX = 20;
+        let posY = 20;
+
+        pincel.fillStyle = 'darkgray'
+        pincel.fillRect(0, 0, 600, 600)
+
+        pincel.fillStyle = 'red'
+        pincel.beginPath()
+        pincel.arc(posX, posY, 10, 0, 2*Math.PI)
+        pincel.fill()
+        
+        function moveBallX (deslocamentoX) {
+            pincel.fillStyle = 'red'
+            pincel.beginPath()
+            pincel.arc(posX += deslocamentoX, posY, 10, 0, 2*Math.PI)
+            pincel.fill()
+        }
+        function moveBallY (deslocamentoY) {
+            pincel.fillStyle = 'red'
+            pincel.beginPath()
+            pincel.arc(posX, posY += deslocamentoY, 10, 0, 2*Math.PI)
+            pincel.fill()  
+        }
+
+        function windowClear () {
+            // pincel.clearRect(0,0, 600, 600)
+            pincel.fillStyle = 'darkgray'
+            pincel.fillRect(0, 0, 600, 600)
+        }
+        document.onkeydown = (e) =>{
+            // To right
+            if(e.keyCode == 39) {
+                if (posX <= 600-30){
+                    windowClear()
+                    moveBallX(20)
+                }
+            }
+            // To Left
+            if(e.keyCode == 37) {
+                if (posX >= 40){
+                    windowClear()
+                    moveBallX(-20)
+                }
+            }
+            // To Down
+            if(e.keyCode == 40) {
+                if(posY <= 600-30){
+                    windowClear()
+                    moveBallY(20)
+                }
+            }
+            // To Up
+            if(e.keyCode == 38) {
+                if(posY >= 40){
+                    windowClear()
+                    moveBallY(-20)
+                }
+            }
+        }
+
+        alert('Utilize as setas para se mover pelo espaço.')
+        
+    </script>
+</body>
+</html>
